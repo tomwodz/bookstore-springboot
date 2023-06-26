@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookstore - Spring Boot - Maven</title>
+    <link rel="stylesheet" href="/common.css">
+    <link rel="stylesheet" href="/book.css">
+</head>
+<body>
+<div id="logo">
+    <p>Księgarnia</p>
+</div>
+<div id="menu">
+    <a href="/main" class="button">STRONA GŁÓWNA</a>
+    <a href="/contact" class="button">KONTAKT</a>
+    <a href="/login" class="button">ZALOGUJ</a>
+    <a href="/logout" class="button">WYLOGUJ</a>
+</div>
+<div id="content">
+    <form method="get">
+        <input type="text" name="pattern" class="input" placeholder="Szukaj">
+        <input type="submit" value="SZUKAJ" class="button">
+    </form>
+    <div th:each="book : ${books}" class="book">
+        <div th:text="${book.title}" class="title"></div>
+        <div th:text="${book.author}" class="author"></div>
+        <div th:text="'Cena: ' + ${book.price}" class="price"></div>
+        <div th:text="'Ilość: ' + ${book.quantity}" class="quantity"></div>
+        <div th:text="'ISBN: ' + ${book.isbn}" class="isbn"></div>
+    </div>
+    <div>
+        <form method="get">
+        <label>Książki:
+        <select name="pattern">
+            <option th:each="book : ${books}"  th:value="${book.title}"><p th:text="${book.title}"></p></option>
+            <input type="submit" value="SZUKAJ" class="button">
+        </select>
+        </label>
+        </form>
+    </div>
+</div>
+</body>
+</html>

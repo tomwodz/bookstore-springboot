@@ -7,15 +7,9 @@
     <link rel="stylesheet" href="/book.css">
 </head>
 <body>
-<div id="logo">
-    <p>Księgarnia</p>
-</div>
-<div id="menu">
-    <a href="/main" class="button">STRONA GŁÓWNA</a>
-    <a href="/contact" class="button">KONTAKT</a>
-    <a href="/login" class="button">ZALOGUJ</a>
-    <a href="/logout" class="button">WYLOGUJ</a>
-</div>
+<div th:replace="~{fragments.html :: logo}"></div>
+<div th:replace="~{fragments.html :: menu}"></div>
+
 <div id="content">
     <form method="get">
         <input type="text" name="pattern" class="input" placeholder="Szukaj">
@@ -27,8 +21,13 @@
         <div th:text="'Cena: ' + ${book.price}" class="price"></div>
         <div th:text="'Ilość: ' + ${book.quantity}" class="quantity"></div>
         <div th:text="'ISBN: ' + ${book.isbn}" class="isbn"></div>
+        <div>
+            <a th:if="${admin}" th:href="@{/book/update/{id}(id=${book.id})}" class="button">EDYTUJ</a>
+            <a th:if="${admin}" th:href="@{/book/delete/{id}(id=${book.id})}" class="button">USUŃ</a>
+            <a th:if="${logged}" th:href="@{/cart/add/{id}(id=${book.id})}" class="button">DODAJ DO KOSZYKA</a>
+        </div>
     </div>
-    <div>
+   <!-- <div>
         <form method="get">
         <label>Książki:
         <select name="pattern">
@@ -37,7 +36,7 @@
         </select>
         </label>
         </form>
-    </div>
+    </div>-->
 </div>
 </body>
 </html>

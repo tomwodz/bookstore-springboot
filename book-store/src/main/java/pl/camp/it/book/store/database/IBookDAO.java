@@ -14,4 +14,6 @@ public interface IBookDAO {
     Book getBookById(int id);
 
     void deleteBook(int id);
+
+    void  updateBook(Book book);
 }

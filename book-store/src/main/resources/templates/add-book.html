@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Bookstore - Spring Boot - Maven</title>
+  <link rel="stylesheet" href="/common.css">
+  <link rel="stylesheet" href="/add-book.css">
+  <script src="/book-validator.js"></script>
+</head>
+<body>
+<div th:replace="~{fragments.html :: logo}"></div>
+<div th:replace="~{fragments.html :: menu}"></div>
+<div id="content">
+  <form method="post" onsubmit="return validate()">
+    <div id="info"></div>
+    <input type="text" name="title" id="title" class="input" placeholder="Tytuł" th:field="*{bookModel.title}">
+    <input type="text" name="author" id="author" class="input" placeholder="Autor" th:field="*{bookModel.author}">
+    <input type="text" name="price" id="price" class="input" placeholder="Cena" th:field="*{bookModel.price}">
+    <input type="text" name="isbn" id="isbn" class="input" placeholder="ISBN" th:field="*{bookModel.isbn}">
+    <input type="text" name="quantity" id="quantity" class="input" placeholder="Ilość" th:field="*{bookModel.quantity}">
+    <input type="submit" value="DODAJ KSIĄŻKĘ" class="button">
+  </form>
+</div>
+</body>
+</html>

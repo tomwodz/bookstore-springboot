@@ -1,0 +1,26 @@
+.position{
+    width: 100%;
+    text-algin: center;
+    border: 2px solid #ffe5cc;
+    border-radius: 8px;
+    margin: 20px auto;
+    font-size: 16px;
+    cursor: default;
+    background-color: #fff2e6;
+}
+
+.position div {
+    display: inline-block;
+}
+
+.title {
+    width: 35%;
+}
+
+.author {
+    width: 30%;
+}
+
+.quantity, .price, .sum{
+    width: 11%;
+}

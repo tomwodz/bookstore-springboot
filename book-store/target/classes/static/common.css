@@ -4,7 +4,7 @@ font-family: Verdana,  serif;
 font-style: normal;
 text-align: center;
 color: #061029;
-  background-image: url('/background.JPG');
+  background-image: url('/background.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -24,7 +24,7 @@ opacity: 0.8;
 
 #menu {
 text-align: center;
-height: 60px;
+height: 50px;
 border-top: 2px solid #ffe5cc;
 background-color: #fff2e6;
 }
@@ -35,12 +35,12 @@ font-size: 16px;
 margin: 5px 10px;
 text-align: center;
 text-decoration: none;
-border: 2px solid #ffe5cc;
+border: 2px solid #ffd5ad;
 border-radius: 8px;
 padding: 5px 20px;
 color: #33281e;
 transition: 0.5s;
-background-color: #ffefe0;
+background-color: #ffe2c7;
 cursor: pointer;
 display: inline-block;
 }
@@ -50,11 +50,11 @@ font-size: 16px;
 margin: 5px 10px;
 text-align: center;
 text-decoration: none;
-border: 2px solid #ffca9a;
+border: 2px solid #ffd5ad;
 border-radius: 8px;
 padding: 5px 20px;
 color: #33281e;
-background-color: #ffe4cc;
+background-color: #ffd5ae;
 cursor: pointer;
 display: inline-block;
 }
@@ -65,6 +65,10 @@ margin: 20px auto;
 text-align: center;
 background-color: white;
 background: rgba(255,255,255,0.8);
+}
+
+#info {
+    height: 20px;
 }
 
 .input{

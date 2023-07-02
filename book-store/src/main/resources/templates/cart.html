@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Bookstore - Spring Boot - Maven</title>
+  <link rel="stylesheet" href="/common.css">
+  <link rel="stylesheet" href="/cart.css">
+</head>
+<body>
+<div th:replace="~{fragments.html :: logo}"></div>
+<div th:replace="~{fragments.html :: menu}"></div>
+<div id="content">
+  <div th:if="${positions.size() == 0}">Koszyk jest pusty.</div>
+<th:block th:if="${positions.size() != 0}">
+  <div class="position">
+    <div class="title">Tytuł:</div>
+    <div class="author">Autor:</div>
+    <div class="quantity">Ilość:</div>
+    <div class="price">Cena:</div>
+    <div class="sum">Suma:</div>
+  </div>
+  <div th:each="position : ${positions}" class="position">
+    <div th:text="${position.book.title}" class="title"></div>
+    <div th:text="${position.book.author}" class="author"></div>
+    <div th:text="${position.quantity}" class="quantity"></div>
+    <div th:text="${position.book.price} + ' zł'" class="price"></div>
+    <div th:text="${#numbers.formatDecimal(position.book.price * position.getQuantity, 1,2)} + ' zł'" class="sum"></div>
+  </div>
+  <div class="position">
+    <div class="title"></div>
+    <div class="author"></div>
+    <div class="quantity"></div>
+    <div class="price">Suma:</div>
+    <div th:text="${#numbers.formatDecimal(total,1,2)} + ' zł'" class="sum"></div>
+  </div>
+  <a href="/cart/confirm" class="button">ZAMÓW</a>
+</th:block>
+</div>
+
+</body>
+</html>

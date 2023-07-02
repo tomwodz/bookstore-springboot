@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Bookstore - Spring Boot - Maven</title>
+  <link rel="stylesheet" href="/common.css">
+  <link rel="stylesheet" href="/order.css">
+</head>
+<body>
+<div th:replace="~{fragments.html :: logo}"></div>
+<div th:replace="~{fragments.html :: menu}"></div>
+<div id="content">
+
+  <div  class="order">
+    <div class="id">Id</div>
+    <div class="date">Data</div>
+    <div class="status">Status</div>
+    <div  class="positions-count">Pozycje</div>
+    <div class="total">Kwota</div>
+  </div>
+
+  <div th:each="order : ${orders}" class="order">
+    <div th:text="${order.id}" class="id"></div>
+    <div th:text="${order.getPrettyTime()}" class="date">Data</div>
+    <div th:text="${order.status}" class="status"></div>
+    <div th:text="${order.orderPositions.size()}" class="positions-count"></div>
+    <div th:text="${#numbers.formatDecimal(order.total,1,2)} + ' zł'" class="total"></div>
+  </div>
+
+<!--    <div class="position">
+      <div class="title">Tytuł:</div>
+      <div class="author">Autor:</div>
+      <div class="quantity">Ilość:</div>
+      <div class="price">Cena:</div>
+      <div class="sum">Suma:</div>
+    </div>
+    <div th:each="position : ${orders}" class="position">
+      <div th:text="${position.book.title}" class="title"></div>
+      <div th:text="${position.book.author}" class="author"></div>
+      <div th:text="${position.quantity}" class="quantity"></div>
+      <div th:text="${position.book.price} + ' zł'" class="price"></div>
+      <div th:text="${#numbers.formatDecimal(position.book.price * position.getQuantity, 1,2)} + ' zł'" class="sum"></div>
+    </div>-->
+
+</div>
+
+</body>
+</html>

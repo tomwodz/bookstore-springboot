@@ -8,6 +8,7 @@ import pl.camp.it.book.store.services.IBookService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements IBookService {
@@ -38,7 +39,7 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public Book getBookById(int id) {
+    public Optional<Book> getBookById(int id) {
         return this.bookDAO.getBookById(id);
     }
 

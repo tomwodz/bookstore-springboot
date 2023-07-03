@@ -8,6 +8,7 @@ import pl.camp.it.book.store.model.Order;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class OrderDAO implements IOrderDAO {
@@ -34,12 +35,12 @@ public class OrderDAO implements IOrderDAO {
     }
 
     @Override
-    public Order getOrderById(int id) {
+    public Optional<Order> getOrderById(int id) {
         for (Order order : this.orders) {
             if (order.getId() == id) {
-                return order;
+                return Optional.of(order);
             }
         }
-        return null;
+        return Optional.empty();
     }
 }

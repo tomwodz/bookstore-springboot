@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import pl.camp.it.book.store.model.Book;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public interface IBookDAO {
@@ -11,7 +12,7 @@ public interface IBookDAO {
 
     void persistBook(Book book);
 
-    Book getBookById(int id);
+    Optional<Book> getBookById(int id);
 
     void deleteBook(int id);
 

@@ -53,10 +53,10 @@ public class UserValidator {
 
     public static void validateUser(User user){
         validateName(user.getName());
-        //validateSurname(user.getSurname());
-        //validateEmail(user.getEmail());
-        //validateLogin(user.getLogin());
-        //validatePassword(user.getPassword());
+        validateSurname(user.getSurname());
+        validateEmail(user.getEmail());
+        validateLogin(user.getLogin());
+        validatePassword(user.getPassword());
     }
 
 }

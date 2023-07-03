@@ -12,10 +12,7 @@ import pl.camp.it.book.store.services.ICartService;
 import pl.camp.it.book.store.session.SessionData;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class CartServiceImpl implements ICartService {
@@ -31,10 +28,11 @@ public class CartServiceImpl implements ICartService {
 
     @Override
     public void addProductToCart(int id) {
-        Book book = this.bookDAO.getBookById(id);
-        if (book == null) {
+        Optional<Book> bookBox = this.bookDAO.getBookById(id);
+        if (bookBox.isEmpty()) {
             return;
         }
+        Book book = bookBox.get();
         Cart cart = this.sessionData.getCart();
         for (OrderPosition orderPosition : cart.getPositions()) {
             if (orderPosition.getBook().getId() == id) {
@@ -56,18 +54,20 @@ public class CartServiceImpl implements ICartService {
     public void confirm() {
         Map<Book, Integer> booksToUpdateWithNewQuantity = new HashMap<>();
         boolean positionChanged = false;
-        for (OrderPosition orderPosition : this.sessionData.getCart().getPositions()) {
-            Book positionBook = orderPosition.getBook();
-            int bookId = positionBook.getId();
-            Book bookFromDb = this.bookDAO.getBookById(bookId);
-
-            if (bookFromDb.getQuantity() < orderPosition.getQuantity()) {
+        for(OrderPosition orderPosition : this.sessionData.getCart().getPositions()) {
+            Optional<Book> bookFromDbBox = this.bookDAO.getBookById(orderPosition.getBook().getId());
+            if(bookFromDbBox.isEmpty()){
+                this.sessionData.getCart().getPositions().remove(orderPosition);
+                return;
+            }
+            Book bookFromDb = bookFromDbBox.get();
+            if(bookFromDb.getQuantity() < orderPosition.getQuantity()) {
                 orderPosition.setQuantity(bookFromDb.getQuantity());
                 positionChanged = true;
             }
-            booksToUpdateWithNewQuantity.put(bookFromDb,bookFromDb.getQuantity() - orderPosition.getQuantity());
+            booksToUpdateWithNewQuantity.put(bookFromDb, bookFromDb.getQuantity() - orderPosition.getQuantity());
         }
-        if(positionChanged){
+        if(positionChanged) {
             return;
         }
         Order order = new Order();
@@ -77,7 +77,7 @@ public class CartServiceImpl implements ICartService {
         order.setTotal(this.calculateCartSum());
         order.setDateTime(LocalDateTime.now());
         this.orderDAO.persistOrder(order);
-        for(Map.Entry<Book, Integer> entry : booksToUpdateWithNewQuantity.entrySet()){
+        for(Map.Entry<Book, Integer> entry : booksToUpdateWithNewQuantity.entrySet()) {
             entry.getKey().setQuantity(entry.getValue());
             this.bookDAO.updateBook(entry.getKey());
         }
@@ -87,8 +87,8 @@ public class CartServiceImpl implements ICartService {
     @Override
     public void removeFromCart(int id) {
         Set<OrderPosition> orderPositions = this.sessionData.getCart().getPositions();
-        for(OrderPosition orderPosition: orderPositions){
-            if(orderPosition.getBook().getId() == id){
+        for(OrderPosition orderPosition : orderPositions) {
+            if(orderPosition.getBook().getId() == id) {
                 orderPositions.remove(orderPosition);
                 return;
             }

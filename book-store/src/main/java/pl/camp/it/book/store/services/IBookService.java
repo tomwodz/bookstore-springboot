@@ -2,6 +2,7 @@ package pl.camp.it.book.store.services;
 import pl.camp.it.book.store.model.Book;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IBookService {
     List<Book> getAllBooks();
@@ -9,7 +10,7 @@ public interface IBookService {
 
     void persistBook(Book book);
 
-    Book getBookById(int id);
+    Optional<Book> getBookById(int id);
 
     void updateBook(Book book);
 

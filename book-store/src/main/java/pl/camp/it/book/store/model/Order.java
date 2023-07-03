@@ -16,7 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 public class Order {
-    private  int id;
+    private int id;
     private User user;
     private final Set<OrderPosition> orderPositions = new HashSet<>();
     private Status status;

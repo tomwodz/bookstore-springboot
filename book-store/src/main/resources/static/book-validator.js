@@ -7,7 +7,7 @@ function validate() {
     var info = document.getElementById("info");
 
     var titleRegex = /^.+$/;
-    var authorRegex = /^.+$/;
+    var authorRegex = /^[A-Z][a-z]+( [A-Z][a-z]+)? [A-Z][a-z]+([ -][A-Z][a-z]+)?$/;
     var priceRegex = /^[0-9]+\.[0-9]{1,2}$/;
     var quantityRegex = /^[0-9]+$/;
     var isbnRegex = /^(978|979)-[0-9]{2}-[0-9]{2,6}-[0-9]{1,5}-[0-9]$/;
@@ -16,7 +16,7 @@ function validate() {
     var infoResult = "";
 
     if(!titleRegex.test(title.value)) {
-        infoResult = infoResult + "Zły tytuł <br>";
+        infoResult = infoResult + "Zły tytuł. ";
         title.style.background = "#fcc2c2";
         result = false;
     } else {
@@ -24,15 +24,15 @@ function validate() {
     }
 
     if(!authorRegex.test(author.value)) {
-        infoResult = infoResult + "Zły autor <br>";
+        infoResult = infoResult + "Zły autor. ";
         author.style.background = "#fcc2c2";
         result = false;
     } else {
         author.style.background = "#ffffff";
     }
 
-    if(!priceRegex.test(price.value)) {
-        infoResult = infoResult + "Zła cena <br>";
+    if(!priceRegex.test(price.value) || price.value <= 0) {
+        infoResult = infoResult + "Zła cena. ";
         price.style.background = "#fcc2c2";
         result = false;
     } else {
@@ -40,7 +40,7 @@ function validate() {
     }
 
     if(!quantityRegex.test(quantity.value)) {
-        infoResult = infoResult + "Zła ilość <br>";
+        infoResult = infoResult + "Zła ilość. ";
         quantity.style.background = "#fcc2c2";
         result = false;
     } else {
@@ -48,7 +48,7 @@ function validate() {
     }
 
     if(!isbnRegex.test(isbn.value)) {
-        infoResult = infoResult + "Zły ISBN <br>";
+        infoResult = infoResult + "Zły ISBN. ";
         isbn.style.background = "#fcc2c2";
         result = false;
     } else {

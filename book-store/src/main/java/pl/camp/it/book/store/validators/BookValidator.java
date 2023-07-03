@@ -13,7 +13,7 @@ public class BookValidator {
     }
 
     public static void validateAuthor(String author){
-        String regex = "[A-Z][a-z]+( [A-Z][a-z]+)? [A-Z][a-z]+([ -][A-Z][a-z]+)?$";
+        String regex = "^.+$";
         if(!author.matches(regex)){
             throw new BookValidationException();
         }

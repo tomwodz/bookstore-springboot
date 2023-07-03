@@ -15,8 +15,10 @@ import pl.camp.it.book.store.services.IBookService;
 import pl.camp.it.book.store.session.SessionData;
 import pl.camp.it.book.store.validators.BookValidator;
 
+import java.util.Optional;
+
 @Controller
-@RequestMapping(path = "/book")
+@RequestMapping(path="/book")
 public class BookController {
 
     @Autowired
@@ -51,12 +53,12 @@ public class BookController {
 
    @RequestMapping(path="/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable int id, Model model) {
-       Book book = this.bookService.getBookById(id);
-       if (!this.sessionData.isAdmin() || book == null) {
+       Optional<Book> bookBox = this.bookService.getBookById(id);
+       if (!this.sessionData.isAdmin() || bookBox.isEmpty()) {
            return "redirect:/main";
        }
        ModelUtils.addCommonDataToModel(model, this.sessionData);
-       model.addAttribute("bookModel", book);
+       model.addAttribute("bookModel", bookBox.get());
        return "add-book";
    }
 

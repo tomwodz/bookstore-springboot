@@ -1,6 +1,7 @@
 package pl.camp.it.book.store.controllers;
 
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ public class AuthenticationController {
     public String login(Model model
     ){
         ModelUtils.addCommonDataToModel(model, this.sessionData);
+        model.addAttribute("info" ,this.sessionData.getInfo());
         return "login";
     }
 
@@ -42,12 +44,13 @@ public class AuthenticationController {
             }
         }
         catch (UserValidationException e){}
+        this.sessionData.setInfo("Niepoprawny login i hasło.");
         return "redirect:/login";
     }
 
     @RequestMapping(path = "/logout", method = RequestMethod.GET)
-    public String logout(){
-        this.authenticationService.logout();
+    public String logout(HttpServletRequest request){
+        this.authenticationService.logout(request);
         return "redirect:/main";
     }
 

@@ -1,6 +1,8 @@
 package pl.camp.it.book.store.model;
 
 import lombok.*;
+import org.springframework.web.context.annotation.RequestScope;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -16,6 +18,7 @@ public class User {
     private String surname;
     private String email;
     private Role role;
+
 
     public static User copOf(User user){
         User result = new User();

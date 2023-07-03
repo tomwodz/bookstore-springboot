@@ -9,9 +9,8 @@
     background-color: #fff2e6;
 }
 
-.order:hover .order .position{
-    display: inline-block;
-
+.order:hover .position {
+    display: block!important;
 }
 
 .order .id, .order .date, .order .status, .order .positions-count, .order .total {
@@ -23,7 +22,6 @@
     display: none;
     width: 90%;
     margin: 10px auto;
-    display: inline-block;
 }
 
 .order .position div {
@@ -34,10 +32,10 @@
     width: 35%;
 }
 
-.order  .position .author {
+.order .position .author {
     width: 30%;
 }
 
-.order  .position .quantity, .position .price, .position .sum{
+.order  .position .quantity, .order  .position .price, .order .position .sum {
     width: 11%;
 }

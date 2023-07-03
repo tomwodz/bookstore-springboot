@@ -8,6 +8,7 @@ import pl.camp.it.book.store.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserDAO implements IUserRepository {
@@ -19,18 +20,18 @@ public class UserDAO implements IUserRepository {
 
     public UserDAO(@Autowired IUserIdSequence userIdSequence) {
         this.useres.add(new User(userIdSequence.getId(), "admin", "21232f297a57a5a743894a0e4a801fc3", "Tomasz", "Wodz","twodzinski@op.pl", User.Role.ADMIN));
-        this.useres.add(new User(userIdSequence.getId(), "tomasz", "2df8ce7d317c7d89dfa95be7695d2de0", "Tomasz", "Wodz","twodzisnki@op.pl", User.Role.USER));
+        this.useres.add(new User(userIdSequence.getId(), "tomasz", "21232f297a57a5a743894a0e4a801fc3", "Tomasz", "Wodz","twodzisnki@op.pl", User.Role.USER));
         this.userIdSequence = userIdSequence;
     }
 
     @Override
-    public User getByLogin(String login){
+    public Optional<User> getByLogin(String login){
        for(User user: this.useres){
            if(user.getLogin().equals(login)){
-               return User.copOf(user);
+               return Optional.of(User.copOf(user));
            }
        }
-       return null;
+       return Optional.empty();
     }
 
     @Override

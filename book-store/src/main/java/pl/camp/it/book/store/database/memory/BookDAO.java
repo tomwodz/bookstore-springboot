@@ -9,6 +9,7 @@ import pl.camp.it.book.store.model.Book;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class BookDAO implements IBookDAO {
@@ -38,13 +39,13 @@ public class BookDAO implements IBookDAO {
     }
 
     @Override
-    public Book getBookById(int id) {
+    public Optional<Book> getBookById(int id) {
         for(Book book: this.books){
             if(book.getId() == id){
-                return book;
+                return Optional.of(book);
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     @Override

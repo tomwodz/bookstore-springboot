@@ -36,7 +36,6 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     @Override
     public void logout(HttpServletRequest request) {
-        //this.sessionData.setUser(null);
         HttpSession session = request.getSession(false);
         if(session != null){
             session.invalidate();

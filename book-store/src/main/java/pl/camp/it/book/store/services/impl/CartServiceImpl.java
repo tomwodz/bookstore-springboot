@@ -54,20 +54,20 @@ public class CartServiceImpl implements ICartService {
     public void confirm() {
         Map<Book, Integer> booksToUpdateWithNewQuantity = new HashMap<>();
         boolean positionChanged = false;
-        for(OrderPosition orderPosition : this.sessionData.getCart().getPositions()) {
+        for (OrderPosition orderPosition : this.sessionData.getCart().getPositions()) {
             Optional<Book> bookFromDbBox = this.bookDAO.getBookById(orderPosition.getBook().getId());
-            if(bookFromDbBox.isEmpty()){
+            if (bookFromDbBox.isEmpty()) {
                 this.sessionData.getCart().getPositions().remove(orderPosition);
                 return;
             }
             Book bookFromDb = bookFromDbBox.get();
-            if(bookFromDb.getQuantity() < orderPosition.getQuantity()) {
+            if (bookFromDb.getQuantity() < orderPosition.getQuantity()) {
                 orderPosition.setQuantity(bookFromDb.getQuantity());
                 positionChanged = true;
             }
             booksToUpdateWithNewQuantity.put(bookFromDb, bookFromDb.getQuantity() - orderPosition.getQuantity());
         }
-        if(positionChanged) {
+        if (positionChanged) {
             return;
         }
         Order order = new Order();
@@ -77,7 +77,7 @@ public class CartServiceImpl implements ICartService {
         order.setTotal(this.calculateCartSum());
         order.setDateTime(LocalDateTime.now());
         this.orderDAO.persistOrder(order);
-        for(Map.Entry<Book, Integer> entry : booksToUpdateWithNewQuantity.entrySet()) {
+        for (Map.Entry<Book, Integer> entry : booksToUpdateWithNewQuantity.entrySet()) {
             entry.getKey().setQuantity(entry.getValue());
             this.bookDAO.updateBook(entry.getKey());
         }
@@ -87,8 +87,8 @@ public class CartServiceImpl implements ICartService {
     @Override
     public void removeFromCart(int id) {
         Set<OrderPosition> orderPositions = this.sessionData.getCart().getPositions();
-        for(OrderPosition orderPosition : orderPositions) {
-            if(orderPosition.getBook().getId() == id) {
+        for (OrderPosition orderPosition : orderPositions) {
+            if (orderPosition.getBook().getId() == id) {
                 orderPositions.remove(orderPosition);
                 return;
             }
@@ -97,15 +97,13 @@ public class CartServiceImpl implements ICartService {
 
     @Override
     public void clearCart() {
-this.sessionData.getCart().getPositions().clear();
+        this.sessionData.getCart().getPositions().clear();
     }
 
     @Override
     public double calculateCartSum() {
-        double sum = 0.0;
-        for (OrderPosition orderPosition: this.sessionData.getCart().getPositions()){
-            sum = orderPosition.getQuantity() * orderPosition.getBook().getPrice() + sum;
-        }
-        return sum;
+        return this.sessionData.getCart().getPositions().stream()
+                .mapToDouble(op -> op.getQuantity() * op.getBook().getPrice())
+                .sum();
     }
 }

@@ -7,7 +7,6 @@ import pl.camp.it.book.store.database.sequence.IBookIdSequence;
 import pl.camp.it.book.store.model.Book;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +20,9 @@ public class BookDAO implements IBookDAO {
 
     public BookDAO(@Autowired IBookIdSequence bookIdSequence) {
         books.add(new Book(bookIdSequence.getId(), "Java. Rusz głową! Wydanie III", "Kathy Sierra, Bert Bates, Trisha Gee", 95.00, 10, "978-83-283-9984-6"));
-        books.add(new Book(bookIdSequence.getId(),"Java. Efektywne programowanie. Wydanie III", "Joshua Bloch", 64.80, 20, "978-83-283-9896-2"));
-        books.add(new Book(bookIdSequence.getId(),"Java. Kompendium programisty. Wydanie XII", "Herbert Schildt",119.40, 30, "978-83-832-2156-4"));
-        books.add(new Book(bookIdSequence.getId(),"Czysty kod. Podręcznik dobrego programisty", "Robert C. Martin", 47.90, 40, "978-83-832-2344-5"));
+        books.add(new Book(bookIdSequence.getId(), "Java. Efektywne programowanie. Wydanie III", "Joshua Bloch", 64.80, 20, "978-83-283-9896-2"));
+        books.add(new Book(bookIdSequence.getId(), "Java. Kompendium programisty. Wydanie XII", "Herbert Schildt", 119.40, 30, "978-83-832-2156-4"));
+        books.add(new Book(bookIdSequence.getId(), "Czysty kod. Podręcznik dobrego programisty", "Robert C. Martin", 47.90, 40, "978-83-832-2344-5"));
         this.bookIdSequence = bookIdSequence;
     }
 
@@ -35,39 +34,30 @@ public class BookDAO implements IBookDAO {
     @Override
     public void persistBook(Book book) {
         book.setId(bookIdSequence.getId());
-    this.books.add(book);
+        this.books.add(book);
     }
 
     @Override
-    public Optional<Book> getBookById(int id) {
-        for(Book book: this.books){
-            if(book.getId() == id){
-                return Optional.of(book);
-            }
-        }
-        return Optional.empty();
+    public Optional<Book> getBookById(final int id) {
+        return this.books.stream().filter(b -> b.getId() == id).findFirst();
     }
 
     @Override
-    public void deleteBook(int id) {
-        Iterator<Book> iterator = this.books.iterator();
-        while(iterator.hasNext()){
-            if(iterator.next().getId() == id){
-                iterator.remove();
-                return;
-            }
+    public void deleteBook(final int id) {
+        Optional<Book> bookBox = this.books.stream().filter(b -> b.getId() == id).findFirst();
+        if (bookBox.isPresent()) {
+            this.books.remove(bookBox.get());
         }
     }
 
     @Override
     public void updateBook(Book book) {
-        Iterator<Book> iterator = this.books.iterator();
-        while (iterator.hasNext()){
-            if(iterator.next().getId() == book.getId()){
-                iterator.remove();
-                break;
-            }
+        Optional<Book> bookBox = this.books.stream()
+                .filter(b -> b.getId() == book.getId())
+                .findFirst();
+        if (bookBox.isPresent()) {
+            this.books.remove(bookBox.get());
+            this.books.add((book));
         }
-        this.books.add(book);
     }
 }

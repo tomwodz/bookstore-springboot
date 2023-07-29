@@ -18,6 +18,7 @@
     <div class="quantity">Ilość:</div>
     <div class="price">Cena:</div>
     <div class="sum">Suma:</div>
+    <div class="bin"></div>
   </div>
   <div th:each="position : ${positions}" class="position">
     <div th:text="${position.book.title}" class="title"></div>
@@ -25,6 +26,7 @@
     <div th:text="${position.quantity}" class="quantity"></div>
     <div th:text="${position.book.price} + ' zł'" class="price"></div>
     <div th:text="${#numbers.formatDecimal(position.book.price * position.getQuantity, 1,2)} + ' zł'" class="sum"></div>
+    <div class="bin"><a th:href="@{/cart/remove/{id}(id=${position.book.id})}"><img src="/bin.png" class="bin"></a></div>
   </div>
   <div class="position">
     <div class="title"></div>
@@ -32,6 +34,7 @@
     <div class="quantity"></div>
     <div class="price">Suma:</div>
     <div th:text="${#numbers.formatDecimal(total,1,2)} + ' zł'" class="sum"></div>
+    <div class="bin"></div>
   </div>
   <a href="/cart/confirm" class="button">ZAMÓW</a>
 </th:block>

@@ -14,13 +14,20 @@
 }
 
 .title {
-    width: 35%;
+    width: 28%;
 }
 
 .author {
-    width: 30%;
+    width: 25%;
 }
 
-.quantity, .price, .sum{
-    width: 11%;
+.quantity, .price, .sum, .bin {
+    width: 10%;
+}
+
+.bin a{
+    width: 22px;
+    height: 22px;
+    margin: 5px auto 0px auto;
+    cursor: pointer;
 }

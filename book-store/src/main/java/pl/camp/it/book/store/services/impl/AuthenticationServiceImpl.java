@@ -31,7 +31,6 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
             userBox.get().setPassword(null);
             this.sessionData.setUser(userBox.get());
         }
-        ;
     }
 
     @Override
@@ -40,6 +39,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         if(session != null){
             session.invalidate();
         }
+
     }
 
     @Override

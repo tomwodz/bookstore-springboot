@@ -29,7 +29,8 @@ public class UserDAO implements IUserRepository {
         return this.useres.stream()
                 .filter(u -> u.getLogin()
                 .equals(login))
-                .findFirst();
+                .findFirst()
+                .map(User::copOf);
     }
 
     @Override

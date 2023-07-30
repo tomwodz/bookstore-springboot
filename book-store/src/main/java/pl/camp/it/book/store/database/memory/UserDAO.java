@@ -1,5 +1,6 @@
 package pl.camp.it.book.store.database.memory;
 
+import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pl.camp.it.book.store.database.IUserRepository;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+
 public class UserDAO implements IUserRepository {
 
     @Autowired
@@ -37,5 +38,12 @@ public class UserDAO implements IUserRepository {
     public void persistUser(User user) {
         user.setId(userIdSequence.getId());
         this.useres.add(user);
+    }
+
+    @Override
+    public Optional<User> getById(int id) {
+        return this.useres.stream()
+                .filter(u -> u.getId() == id)
+                .findFirst();
     }
 }

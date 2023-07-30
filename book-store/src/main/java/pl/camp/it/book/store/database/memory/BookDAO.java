@@ -1,5 +1,6 @@
 package pl.camp.it.book.store.database.memory;
 
+import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pl.camp.it.book.store.database.IBookDAO;
@@ -7,10 +8,11 @@ import pl.camp.it.book.store.database.sequence.IBookIdSequence;
 import pl.camp.it.book.store.model.Book;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+
 public class BookDAO implements IBookDAO {
 
     @Autowired
@@ -43,11 +45,13 @@ public class BookDAO implements IBookDAO {
     }
 
     @Override
-    public void deleteBook(final int id) {
+    public boolean deleteBook(final int id) {
         Optional<Book> bookBox = this.books.stream().filter(b -> b.getId() == id).findFirst();
         if (bookBox.isPresent()) {
             this.books.remove(bookBox.get());
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -59,5 +63,10 @@ public class BookDAO implements IBookDAO {
             this.books.remove(bookBox.get());
             this.books.add((book));
         }
+    }
+
+    @Override
+    public List<Book> getFiltered(String pattern) {
+        throw new RuntimeException();
     }
 }

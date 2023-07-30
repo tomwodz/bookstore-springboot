@@ -22,7 +22,6 @@ public class BookServiceImpl implements IBookService {
 
     @Override
     public List<Book> getFilteredBooks(String pattern) {
-
         List<Book> books = this.bookDAO.getAllBooks();
         return books.stream()
                 .filter(b -> b.getTitle().toLowerCase().contains(pattern.toLowerCase())

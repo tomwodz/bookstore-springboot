@@ -8,8 +8,8 @@ import lombok.*;
 @Setter
 @ToString
 public class OrderPosition {
+    private int id;
     private Book book;
-
     private int quantity;
 
     public void incrementQuantity() {

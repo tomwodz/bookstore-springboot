@@ -14,7 +14,9 @@ public interface IBookDAO {
 
     Optional<Book> getBookById(int id);
 
-    void deleteBook(int id);
+    boolean deleteBook(int id);
 
     void  updateBook(Book book);
+
+    List<Book> getFiltered(String pattern);
 }

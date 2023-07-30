@@ -27,16 +27,6 @@
             <a th:if="${logged}" th:href="@{/cart/add/{id}(id=${book.id})}" class="button">DODAJ DO KOSZYKA</a>
         </div>
     </div>
-   <!-- <div>
-        <form method="get">
-        <label>Książki:
-        <select name="pattern">
-            <option th:each="book : ${books}"  th:value="${book.title}"><p th:text="${book.title}"></p></option>
-            <input type="submit" value="SZUKAJ" class="button">
-        </select>
-        </label>
-        </form>
-    </div>-->
 </div>
 </body>
 </html>

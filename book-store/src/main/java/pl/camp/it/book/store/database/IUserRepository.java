@@ -10,4 +10,6 @@ public interface IUserRepository {
 
     void persistUser(User user);
 
+    Optional<User> getById(int id);
+
 }

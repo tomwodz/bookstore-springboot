@@ -66,7 +66,7 @@ public class BookDAO implements IBookDAO {
     }
 
     @Override
-    public List<Book> getFiltered(String pattern) {
+    public List<Book> getByPattern(String pattern) {
         throw new RuntimeException();
     }
 }

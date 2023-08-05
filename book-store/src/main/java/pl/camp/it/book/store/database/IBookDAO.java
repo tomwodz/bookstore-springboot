@@ -18,5 +18,5 @@ public interface IBookDAO {
 
     void  updateBook(Book book);
 
-    List<Book> getFiltered(String pattern);
+    List<Book> getByPattern(String pattern);
 }

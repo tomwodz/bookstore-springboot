@@ -26,7 +26,7 @@ public class CommonController {
      if(pattern== null) {
             model.addAttribute("books", this.bookService.getAllBooks());
         } else {
-            model.addAttribute("books", this.bookService.getFilteredBooks(pattern));
+            model.addAttribute("books", this.bookService.getByPattern(pattern));
         }
         ModelUtils.addCommonDataToModel(model, this.sessionData);
         return "index";

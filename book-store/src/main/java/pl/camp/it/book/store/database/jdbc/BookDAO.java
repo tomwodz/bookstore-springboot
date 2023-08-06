@@ -99,7 +99,7 @@ public class BookDAO implements IBookDAO {
             String sql = "UPDATE tbook SET title = ?, author = ?, price = ?, quantity = ?, isbn = ? WHERE  id = ?;";
             PreparedStatement ps = this.connection.prepareStatement(sql);
             ps.setString(1, book.getTitle());
-            ps.setString(2, book.getTitle());
+            ps.setString(2, book.getAuthor());
             ps.setDouble(3, book.getPrice());
             ps.setInt(4, book.getQuantity());
             ps.setString(5, book.getIsbn());

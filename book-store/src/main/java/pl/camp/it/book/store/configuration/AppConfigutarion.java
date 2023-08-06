@@ -1,5 +1,6 @@
 package pl.camp.it.book.store.configuration;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,11 @@ public class AppConfigutarion {
                     "jdbc:mysql://localhost:3306/bookstore", "root", "");
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException();}
+    }
+
+    @Bean
+    public SessionFactory sessionFactory(){
+        return new org.hibernate.cfg.Configuration().configure().buildSessionFactory();
     }
 
     @Bean

@@ -7,7 +7,7 @@ function validate() {
     var info = document.getElementById("info");
 
     var titleRegex = /^.+$/;
-    var authorRegex = /^[A-Z][a-z]+( [A-Z][a-z]+)? [A-Z][a-z]+([ -][A-Z][a-z]+)?$/;
+    var authorRegex = /^.+$/;
     var priceRegex = /^[0-9]+\.[0-9]{1,2}$/;
     var quantityRegex = /^[0-9]+$/;
     var isbnRegex = /^(978|979)-[0-9]{2}-[0-9]{2,6}-[0-9]{1,5}-[0-9]$/;

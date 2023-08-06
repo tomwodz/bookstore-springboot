@@ -42,17 +42,6 @@ public class CartServiceImpl implements ICartService {
                 return;
             }
         }
-     /*   Optional<OrderPosition> positionBox = cart.getPositions().stream()
-                .filter(orderPosition -> orderPosition.getBook().getId() == id)
-                .findFirst();
-
-        if(positionBox.isPresent()){
-            if(positionBox.get().getQuantity() < book.getQuantity()){
-                positionBox.get().incrementQuantity();
-            }
-            return;
-        }
-*/
         if (book.getQuantity() > 0) {
             OrderPosition orderPosition = new OrderPosition();
             orderPosition.setBook(book);
@@ -81,17 +70,20 @@ public class CartServiceImpl implements ICartService {
         if (positionChanged) {
             return;
         }
-        Order order = new Order();
+        final Order order = new Order();
         order.setUser(this.sessionData.getUser());
-        order.getOrderPositions().addAll(this.sessionData.getCart().getPositions());
+        this.sessionData.getCart().getPositions()
+                .stream()
+                .peek(op ->
+                {
+                    Book book = op.getBook();
+                    book.setQuantity(booksToUpdateWithNewQuantity.get(book));
+                })
+                .forEach(order::addOrderPosition);
         order.setStatus(Order.Status.NEW);
         order.setTotal(this.calculateCartSum());
         order.setDateTime(LocalDateTime.now());
         this.orderDAO.persistOrder(order);
-        for (Map.Entry<Book, Integer> entry : booksToUpdateWithNewQuantity.entrySet()) {
-            entry.getKey().setQuantity(entry.getValue());
-            this.bookDAO.updateBook(entry.getKey());
-        }
         this.clearCart();
     }
 

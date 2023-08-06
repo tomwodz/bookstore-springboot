@@ -1,9 +1,7 @@
 package pl.camp.it.book.store.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,10 +13,18 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
+@Entity(name ="torder")
 public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order")
     private final Set<OrderPosition> orderPositions = new HashSet<>();
+    @Enumerated(EnumType.STRING)
     private Status status;
     private double total;
     private LocalDateTime dateTime;
@@ -26,6 +32,11 @@ public class Order {
     public String getPrettyTime(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
         return this.dateTime.format(formatter);
+    }
+
+    public  void addOrderPosition(OrderPosition orderPosition){
+        this.orderPositions.add(orderPosition);
+        orderPosition.setOrder(this);
     }
 
     public enum Status{

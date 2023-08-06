@@ -1,5 +1,6 @@
 package pl.camp.it.book.store.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -9,16 +10,23 @@ import org.springframework.web.context.annotation.RequestScope;
 @Setter
 @ToString
 @EqualsAndHashCode
+@Entity(name ="tuser")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String login;
     private String password;
     private String name;
     private String surname;
     private String email;
+    @Enumerated(EnumType.STRING)
     private Role role;
 
+    public User(int id) {
+        this.id = id;
+    }
 
     public static User copOf(User user){
         User result = new User();

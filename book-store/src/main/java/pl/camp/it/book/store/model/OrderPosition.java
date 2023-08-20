@@ -1,5 +1,6 @@
 package pl.camp.it.book.store.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +18,7 @@ public class OrderPosition {
     private Book book;
     private int quantity;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
     private Order order;
 
     //TODO

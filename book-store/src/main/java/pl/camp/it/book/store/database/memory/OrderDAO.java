@@ -1,7 +1,6 @@
 package pl.camp.it.book.store.database.memory;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import pl.camp.it.book.store.database.IOrderDAO;
 import pl.camp.it.book.store.database.sequence.IOrderIdSequence;
 import pl.camp.it.book.store.model.Order;

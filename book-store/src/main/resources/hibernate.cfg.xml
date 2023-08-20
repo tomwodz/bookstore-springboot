@@ -9,7 +9,7 @@
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bookstore2</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bookstore</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password"></property>
 
@@ -22,5 +22,9 @@
         <mapping class="pl.camp.it.book.store.model.OrderPosition"/>
         <mapping class="pl.camp.it.book.store.model.User"/>
 
+        <!--<mapping resource="Book.hbm.xml"/>-->
+
     </session-factory>
+
+
 </hibernate-configuration>

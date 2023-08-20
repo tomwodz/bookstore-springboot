@@ -1,5 +1,6 @@
 package pl.camp.it.book.store.database.jdbc;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import pl.camp.it.book.store.database.IBookDAO;
@@ -42,7 +43,7 @@ public class BookDAO implements IBookDAO {
     }
 
     @Override
-    public void persistBook(Book book) {
+    public Optional<Book> persistBook(Book book) {
         try {
             String sql = "INSERT INTO tbook (title, author, price, quantity, isbn) VALUES (?,?,?,?,?)";
             PreparedStatement ps = this.connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -58,6 +59,7 @@ public class BookDAO implements IBookDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return Optional.of(book);
     }
 
     @Override
@@ -94,7 +96,7 @@ public class BookDAO implements IBookDAO {
     }
 
     @Override
-    public void updateBook(Book book) {
+    public Optional<Book> updateBook(Book book) {
         try {
             String sql = "UPDATE tbook SET title = ?, author = ?, price = ?, quantity = ?, isbn = ? WHERE  id = ?;";
             PreparedStatement ps = this.connection.prepareStatement(sql);
@@ -108,6 +110,7 @@ public class BookDAO implements IBookDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return Optional.of(book);
     }
 
     @Override
@@ -133,4 +136,6 @@ public class BookDAO implements IBookDAO {
         }
         return result;
     }
+
+
 }

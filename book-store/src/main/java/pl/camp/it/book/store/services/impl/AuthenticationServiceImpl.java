@@ -44,9 +44,9 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     @Override
     public void register(User user) throws LoginAlreadyExistException {
-        if (this.userRepository.getByLogin(user.getLogin()).isPresent()) {
+     /*   if (this.userRepository.getByLogin(user.getLogin()).isPresent()) {
             throw new LoginAlreadyExistException();
-        }
+        }*/
         user.setPassword(DigestUtils.md5Hex(user.getPassword()));
         user.setRole(User.Role.USER);
         this.userRepository.persistUser(user);

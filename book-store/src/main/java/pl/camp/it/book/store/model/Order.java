@@ -1,11 +1,11 @@
 package pl.camp.it.book.store.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,6 +29,7 @@ public class Order {
     private double total;
     private LocalDateTime dateTime;
 
+    @JsonIgnore
     public String getPrettyTime(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
         return this.dateTime.format(formatter);

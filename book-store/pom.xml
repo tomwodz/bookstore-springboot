@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>book-store</artifactId>
-    <version>1.0</version>
+    <artifactId>bookstore</artifactId>
+    <version>80</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

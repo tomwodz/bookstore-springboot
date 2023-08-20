@@ -21,13 +21,13 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public List<Book> getByPattern(String pattern) {
+    public List<Book> getFilteredBooks(String pattern) {
         return this.bookDAO.getByPattern(pattern);
     }
 
     @Override
-    public void persistBook(Book book) {
-        this.bookDAO.persistBook(book);
+    public  Optional<Book> persistBook(Book book) {
+        return this.bookDAO.persistBook(book);
     }
 
     @Override
@@ -36,8 +36,8 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public void updateBook(Book book) {
-        this.bookDAO.updateBook(book);
+    public Optional<Book> updateBook(Book book) {
+        return this.bookDAO.updateBook(book);
     }
 
     @Override

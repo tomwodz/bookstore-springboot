@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name ="pl.camp.it.book.store.model.Book" table="tbook">
+        <id name="id" column="id" type="int">
+            <generator class="identity"></generator>
+        </id>
+        <property name="title" column="title" type="string"></property>
+        <property name="author" column="author" type="string"></property>
+        <property name="price" column="price" type="double"></property>
+        <property name="quantity" column="quantity" type="int"></property>
+        <property name="isbn" column="isbn" type="string"></property>
+    </class>
+</hibernate-mapping>

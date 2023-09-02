@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.camp.it.book.store.model.OrderPosition;
-import pl.camp.it.book.store.model.dto.OrderPositionListResponse;
+import pl.camp.it.book.store.model.dto.ListResponse;
 import pl.camp.it.book.store.model.dto.OrderPositionResponseDTO;
 import pl.camp.it.book.store.services.IOrderPositionService;
 
@@ -27,8 +27,8 @@ public class OrderPositionRestController {
     }
 
     @GetMapping
-    public OrderPositionListResponse getByOrderId(@RequestParam int orderId){
-        return new OrderPositionListResponse(this.orderPositionService.getOrderById(orderId).stream()
+    public ListResponse<OrderPositionResponseDTO> getByOrderId(@RequestParam int orderId){
+        return new ListResponse<>(this.orderPositionService.getOrderById(orderId).stream()
                 .map(OrderPositionResponseDTO::new)
                 .toList());
     }

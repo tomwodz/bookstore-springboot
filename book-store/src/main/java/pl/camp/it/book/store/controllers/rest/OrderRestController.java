@@ -7,8 +7,8 @@ import pl.camp.it.book.store.database.IBookDAO;
 import pl.camp.it.book.store.exception.BookNotExistException;
 import pl.camp.it.book.store.exception.UserNotExistException;
 import pl.camp.it.book.store.model.Order;
+import pl.camp.it.book.store.model.dto.ListResponse;
 import pl.camp.it.book.store.model.dto.OrderDTO;
-import pl.camp.it.book.store.model.dto.OrderListResponse;
 import pl.camp.it.book.store.model.dto.SaveOrderRequest;
 import pl.camp.it.book.store.services.IOrderService;
 import pl.camp.it.book.store.services.IUserService;
@@ -32,8 +32,8 @@ public class OrderRestController {
     }
 
     @GetMapping(path = "")
-    public OrderListResponse getOrdersByUserId(@RequestParam int userId) {
-        return new OrderListResponse(
+    public ListResponse<OrderDTO> getOrdersByUserId(@RequestParam int userId) {
+        return new ListResponse<>(
                 this.orderService.getOrdersByUserId(userId).stream()
                 .map(o -> new OrderDTO(o))
                 .toList());

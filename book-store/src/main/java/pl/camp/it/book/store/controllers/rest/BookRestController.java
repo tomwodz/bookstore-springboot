@@ -1,12 +1,15 @@
 package pl.camp.it.book.store.controllers.rest;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.camp.it.book.store.model.Book;
-import pl.camp.it.book.store.model.dto.BookListResponse;
+import pl.camp.it.book.store.model.dto.ListResponse;
 import pl.camp.it.book.store.services.IBookService;
+
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -18,6 +21,7 @@ public class BookRestController {
 
     private final IBookService bookService;
 
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable int id) {
         Optional<Book> bookBox = this.bookService.getBookById(id);
@@ -26,13 +30,13 @@ public class BookRestController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
-
+    @Operation(description = "Odpowiedź: Wszystkie książki", summary = "Odpowiedź: Wszystkie ksiązki")
     @GetMapping(path = "/")
-    public BookListResponse getBooks(@RequestParam(required = false) String pattern){
+    public ListResponse<Book> getBooks(@Parameter(example = "java") @RequestParam(required = false) String pattern){
         if(pattern == null){
-            return new BookListResponse(this.bookService.getAllBooks());
+            return new ListResponse<>(this.bookService.getAllBooks());
         }
-        return new BookListResponse(this.bookService.getFilteredBooks(pattern));
+        return new ListResponse<>(this.bookService.getFilteredBooks(pattern));
     }
 
     @PostMapping(path = "/")

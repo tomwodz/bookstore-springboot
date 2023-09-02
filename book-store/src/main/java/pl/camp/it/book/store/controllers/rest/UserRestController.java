@@ -1,10 +1,12 @@
 package pl.camp.it.book.store.controllers.rest;
 
 import lombok.AllArgsConstructor;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.camp.it.book.store.exception.LoginAlreadyExistException;
 import pl.camp.it.book.store.model.User;
+import pl.camp.it.book.store.model.dto.UserRequest;
 import pl.camp.it.book.store.services.IUserService;
 
 import java.util.Optional;
@@ -33,14 +35,20 @@ public class UserRestController {
     }
 
     @PostMapping(path = "/")
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
-        user.setId(0);
+    public ResponseEntity<User> saveUser(@RequestBody UserRequest user) {
+        User userModel = new User(0,
+                user.getLogin(),
+                DigestUtils.md5Hex(user.getPassword()),
+                user.getName(),
+                user.getSurname(),
+                user.getEmail(),
+                user.getRole());
         try {
-            this.userService.persistUser(user);
+            this.userService.persistUser(userModel);
         } catch (LoginAlreadyExistException e) {
             return ResponseEntity.status(CONFLICT).build();
         }
-        return ResponseEntity.status(CREATED).body(user);
+        return ResponseEntity.status(CREATED).body(userModel);
     }
 
 

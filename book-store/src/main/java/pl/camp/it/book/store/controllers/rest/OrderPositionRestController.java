@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.camp.it.book.store.model.OrderPosition;
 import pl.camp.it.book.store.model.dto.OrderPositionListResponse;
+import pl.camp.it.book.store.model.dto.OrderPositionResponseDTO;
 import pl.camp.it.book.store.services.IOrderPositionService;
 
 import java.util.Optional;
@@ -19,15 +20,17 @@ public class OrderPositionRestController {
     IOrderPositionService orderPositionService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<OrderPosition> getOrderPositionById(@PathVariable int id){
+    public ResponseEntity<OrderPositionResponseDTO> getOrderPositionById(@PathVariable int id){
         Optional<OrderPosition> orderPositionBox = this.orderPositionService.getById(id);
-        return orderPositionBox.map(ResponseEntity::ok)
+        return orderPositionBox.map(op -> ResponseEntity.ok(new OrderPositionResponseDTO(op)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
     public OrderPositionListResponse getByOrderId(@RequestParam int orderId){
-        return new OrderPositionListResponse(this.orderPositionService.getOrderById(orderId));
+        return new OrderPositionListResponse(this.orderPositionService.getOrderById(orderId).stream()
+                .map(OrderPositionResponseDTO::new)
+                .toList());
     }
 
 }

@@ -4,12 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.context.annotation.SessionScope;
 import pl.camp.it.book.store.model.Cart;
 import pl.camp.it.book.store.model.User;
-
-import java.util.Optional;
 
 @NoArgsConstructor
 @Getter

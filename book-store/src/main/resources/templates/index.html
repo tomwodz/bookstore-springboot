@@ -5,6 +5,8 @@
     <title>Bookstore - Spring Boot - Maven</title>
     <link rel="stylesheet" href="/common.css">
     <link rel="stylesheet" href="/book.css">
+    <script src="/index.js"></script>
+    <script src="jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <div th:replace="~{fragments.html :: logo}"></div>
@@ -24,7 +26,7 @@
         <div>
             <a th:if="${admin}" th:href="@{/book/update/{id}(id=${book.id})}" class="button">EDYTUJ</a>
             <a th:if="${admin}" th:href="@{/book/delete/{id}(id=${book.id})}" class="button">USUŃ</a>
-            <a th:if="${logged}" th:href="@{/cart/add/{id}(id=${book.id})}" class="button">DODAJ DO KOSZYKA</a>
+            <div th:if="${logged}" class="button" th:onclick="|addToCart('${book.id}')|" onclick="addToCart()">DODAJ DO KOSZYKA</div>
         </div>
     </div>
 </div>

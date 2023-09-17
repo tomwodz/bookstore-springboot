@@ -34,7 +34,7 @@ public class User {
         result.id = user.id;
         result.role = user.role;
         result.name = user.name;
-        result.surname = user.name;
+        result.surname = user.surname;
         result.login = user.login;
         result.password = user.password;
         result.email = user.email;

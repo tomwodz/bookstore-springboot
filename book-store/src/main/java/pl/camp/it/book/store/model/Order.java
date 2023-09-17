@@ -46,4 +46,8 @@ public class Order {
         SENT,
         DONE
     }
+
+    public Order(int id) {
+        this.id = id;
+    }
 }

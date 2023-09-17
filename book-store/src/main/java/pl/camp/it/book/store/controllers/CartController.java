@@ -31,15 +31,6 @@ public class CartController {
         return "cart";
     }
 
-/*    @RequestMapping(path = "/add/{id}", method = RequestMethod.GET)
-    public String addToCart(@PathVariable int id) {
-        if (!this.sessionData.isLogged()) {
-            return "redirect:/main";
-        }
-        this.cartService.addProductToCart(id);
-        return "redirect:/main";
-    }*/
-
     @RequestMapping(path = "/confirm", method = RequestMethod.GET)
     public String confirm(){
      if (!this.sessionData.isLogged() && this.sessionData.getCart().getPositions().isEmpty()) {
